@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ACYFLS — Alachua County Youth Fair & Livestock Show</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0A0A0A;
+  --off-black:#111;
+  --dark:#1E1E1E;
+  --mid:#555;
+  --light:#AAA;
+  --border:#D8D8D8;
+  --off-white:#F5F4F0;
+  --white:#FFF;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:rgba(10,10,10,0.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-mark{
+  width:34px;height:34px;border:1.5px solid rgba(255,255,255,0.5);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--white);
+}
+.nav-txt{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);line-height:1.4}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{padding:7px 13px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;border-radius:2px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.07)}
+.nav-cta{background:var(--white)!important;color:var(--black)!important;font-weight:700!important}
+.nav-cta:hover{background:var(--off-white)!important}
+
+/* ── HERO ── */
+.hero{
+  position:relative;height:100vh;min-height:640px;
+  padding-top:64px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:#000;
+}
+.hero-bg img{
+  width:100%;height:100%;object-fit:cover;
+  opacity:.45;
+  filter:grayscale(100%) contrast(1.1);
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(0,0,0,0.85) 40%,rgba(0,0,0,0.3) 100%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  height:100%;display:flex;align-items:flex-end;
+  padding:0 48px 64px;
+  justify-content:space-between;
+  gap:40px;
+}
+.hero-left{max-width:600px}
+.hero-eye{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.hero-eye-line{width:36px;height:1px;background:rgba(255,255,255,0.3)}
+.hero-eye-txt{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
+h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,9vw,130px);
+  line-height:.92;letter-spacing:.01em;color:var(--white);
+  margin-bottom:28px;
+}
+h1 em{font-family:'DM Serif Display',serif;font-style:italic;color:rgba(255,255,255,.55);display:block}
+.hero-desc{font-size:15px;font-weight:300;line-height:1.8;color:rgba(255,255,255,.6);max-width:400px;margin-bottom:36px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:transform .15s,background .2s,color .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-white{background:var(--white);color:var(--black)}
+.btn-white:hover{background:var(--off-white)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.25)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.6)}
+.btn-dark{background:var(--black);color:var(--white);border:1px solid rgba(255,255,255,.1)}
+.btn-dark:hover{background:var(--dark)}
+.btn-outline-dark{background:transparent;color:var(--black);border:1px solid var(--border)}
+.btn-outline-dark:hover{background:var(--black);color:var(--white);border-color:var(--black)}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* hero right — event card */
+.hero-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  padding:32px;width:320px;flex-shrink:0;
+  backdrop-filter:blur(6px);
+}
+.hc-row{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:flex-start}
+.hc-row:last-child{border-bottom:none}
+.hc-label{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.hc-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white);text-align:right;line-height:1.1}
+.hc-val-sm{font-size:12px;color:rgba(255,255,255,.65);text-align:right;line-height:1.6;font-weight:300}
+
+/* hero bottom strip */
+.hero-strip{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  display:flex;border-top:1px solid rgba(255,255,255,.08);
+}
+.hs-item{
+  flex:1;padding:16px 24px;
+  border-right:1px solid rgba(255,255,255,.08);
+  font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);text-align:center;
+}
+.hs-item:last-child{border-right:none}
+
+/* ── TICKER ── */
+.ticker{background:var(--white);border-top:1px solid var(--black);border-bottom:1px solid var(--black);padding:13px 0;overflow:hidden}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite}
+.ticker-item{display:inline-flex;align-items:center;padding:0 28px;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--black);border-right:1px solid var(--border)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTION BASE ── */
+section{padding:96px 48px}
+.s-label{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--light);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.s-label::before{content:'';display:block;width:24px;height:1px;background:var(--light)}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,5.5vw,82px);line-height:.94;letter-spacing:.01em;color:var(--black)}
+h2 em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--mid)}
+.sec-desc{font-size:15px;font-weight:300;line-height:1.75;color:var(--mid);max-width:520px;margin-top:16px}
+
+/* ── ABOUT ── */
+.about{background:var(--off-white);padding:0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr}
+.about-content{padding:96px 64px 96px 48px;display:flex;flex-direction:column;justify-content:center}
+.about-text{font-size:16px;font-weight:300;line-height:1.85;color:var(--dark);margin-bottom:20px}
+.about-text strong{font-weight:700;color:var(--black)}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);margin-top:40px}
+.stat{padding:24px 16px;border-right:1px solid var(--border)}
+.stat:first-child{padding-left:0}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:var(--black);margin-bottom:4px}
+.stat-l{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--light)}
+
+/* about image mosaic */
+.about-images{position:relative;overflow:hidden;min-height:600px}
+.about-images img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.05)}
+.about-img-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.15)}
+
+/* ── FEATURES INTRO ── */
+.features-intro{
+  background:var(--black);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;padding:0;min-height:500px;
+}
+.fi-left{
+  padding:80px 48px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.fi-left h2{color:var(--white)}
+.fi-left h2 em{color:rgba(255,255,255,.3)}
+.fi-left .sec-desc{color:rgba(255,255,255,.5)}
+.fi-right{position:relative;overflow:hidden;min-height:400px}
+.fi-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1);opacity:.6}
+.fi-right-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.8) 0%,rgba(10,10,10,0) 60%)}
+
+/* ── CARDS GRID ── */
+.cards-section{background:var(--white);padding:0}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.p-card{
+  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  text-decoration:none;color:inherit;display:block;
+  overflow:hidden;position:relative;
+  transition:background .2s;
+}
+.p-card:hover .card-img img{transform:scale(1.04)}
+.card-img{height:200px;overflow:hidden;position:relative;background:var(--dark)}
+.card-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1);transition:transform .4s ease}
+.card-img-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.3)}
+.card-body{padding:28px 28px 24px}
+.card-num{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;color:var(--border);margin-bottom:14px}
+.card-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--black);margin-bottom:10px;font-weight:400;line-height:1.2}
+.card-desc{font-size:12px;line-height:1.7;color:var(--mid);font-weight:300;margin-bottom:20px}
+.card-link{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--black);display:flex;align-items:center;gap:6px}
+.card-link::after{content:'→';transition:transform .2s}
+.p-card:hover .card-link::after{transform:translateX(4px)}
+
+/* ── MISSION ── */
+.mission{background:var(--black);padding:0}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;min-height:560px}
+.mission-img{position:relative;overflow:hidden}
+.mission-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%);opacity:.5}
+.mission-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0) 30%,rgba(10,10,10,0.95) 100%)}
+.mission-content{
+  padding:80px 64px 80px 48px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.mission-quote{
+  font-family:'DM Serif Display',serif;font-size:clamp(20px,2.5vw,32px);
+  font-style:italic;line-height:1.5;color:var(--white);
+  border-left:2px solid rgba(255,255,255,.2);padding-left:28px;
+  margin-bottom:48px;
+}
+.mp{display:flex;align-items:flex-start;gap:16px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.mp:last-child{border-bottom:none}
+.mp-n{font-family:'Bebas Neue',sans-serif;font-size:26px;color:rgba(255,255,255,.12);line-height:1;flex-shrink:0;width:28px}
+.mp-t{color:rgba(255,255,255,.55);font-size:13px;line-height:1.7;font-weight:300}
+.mp-t strong{color:var(--white);font-weight:700}
+
+/* ── SPONSORS ── */
+.sponsors{background:var(--off-white)}
+.sponsors-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px;flex-wrap:wrap;gap:20px}
+.tier-block{margin-bottom:48px}
+.tier-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.tier-name{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--light)}
+.tier-hr{flex:1;height:1px;background:var(--border)}
+/* Sponsor logos using real logo images */
+.sponsor-logos{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--border)}
+.sponsor-logo-box{
+  padding:24px 32px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  min-width:160px;display:flex;align-items:center;justify-content:center;
+  transition:background .2s;cursor:default;position:relative;overflow:hidden;
+}
+.sponsor-logo-box:hover{background:var(--black)}
+.sponsor-logo-box:hover .sp-name{color:var(--white)}
+.sp-name{font-size:13px;font-weight:700;color:var(--dark);text-align:center;line-height:1.3;transition:color .2s}
+.sp-name.small{font-size:11px;font-weight:500;color:var(--mid)}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:9px 18px;background:var(--white);border:1px solid var(--border);font-size:11px;font-weight:500;color:var(--dark);transition:background .2s,color .2s,border-color .2s;cursor:default}
+.pill:hover{background:var(--black);color:var(--white);border-color:var(--black)}
+
+/* ── GALLERY ── */
+.gallery{background:var(--black);padding:80px 48px}
+.gallery-head{margin-bottom:40px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.gallery-head h2{color:var(--white)}
+.gallery-head h2 em{color:rgba(255,255,255,.3)}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:260px 260px;
+  gap:3px;
+}
+.g-item{position:relative;overflow:hidden;background:var(--dark)}
+.g-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1);transition:transform .5s ease,opacity .3s}
+.g-item:hover img{transform:scale(1.06);opacity:.8}
+.g-item:first-child{grid-row:1/3}
+.g-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:16px;
+  background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 100%);
+  font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);opacity:0;transition:opacity .3s;
+}
+.g-item:hover .g-caption{opacity:1}
+
+/* ── SCHEDULE ── */
+.schedule{background:var(--white)}
+.sched-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;border:1px solid var(--border)}
+th{background:var(--black);color:var(--white);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:16px 22px;text-align:left}
+td{padding:17px 22px;border-bottom:1px solid var(--border);font-size:13px;color:var(--dark)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--off-white)}
+.badge{display:inline-block;padding:3px 10px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.b-open{background:var(--black);color:var(--white)}
+.b-reg{background:var(--off-white);color:var(--mid);border:1px solid var(--border)}
+
+/* ── CONTACT ── */
+.contact{background:var(--black);padding:0}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr}
+.contact-img{position:relative;overflow:hidden;min-height:560px}
+.contact-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%);opacity:.35}
+.contact-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0) 20%,rgba(10,10,10,0.95) 100%)}
+.contact-form-side{padding:80px 64px 80px 48px;display:flex;flex-direction:column;justify-content:center}
+.contact-form-side .s-label{color:rgba(255,255,255,.3)}
+.contact-form-side h2{color:var(--white);margin-bottom:36px}
+.contact-form-side h2 em{color:rgba(255,255,255,.3)}
+.cd-items{margin-bottom:40px}
+.cd{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.cd:first-child{padding-top:0}
+.cd-icon{width:38px;height:38px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.cd-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+.cd-v{font-size:13px;color:rgba(255,255,255,.65);line-height:1.5}
+.cd-v a{color:rgba(255,255,255,.65);text-decoration:none}
+.cd-v a:hover{color:var(--white)}
+.form-f{margin-bottom:18px}
+.form-f label{display:block;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
+.form-f input,.form-f textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s}
+.form-f input:focus,.form-f textarea:focus{border-color:rgba(255,255,255,.35)}
+.form-f textarea{height:110px;resize:vertical}
+.form-f input::placeholder,.form-f textarea::placeholder{color:rgba(255,255,255,.18)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* ── FOOTER ── */
+footer{background:var(--off-black);border-top:1px solid rgba(255,255,255,.06);padding:30px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-left{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.22)}
+.foot-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
+.foot-links a{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:rgba(255,255,255,.75)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-left>*{animation:fadeUp .6s ease both}
+.hero-left>*:nth-child(1){animation-delay:.05s}
+.hero-left>*:nth-child(2){animation-delay:.18s}
+.hero-left>*:nth-child(3){animation-delay:.3s}
+.hero-left>*:nth-child(4){animation-delay:.42s}
+.hero-card{animation:fadeUp .6s ease .5s both}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nav{padding:0 20px}
+  .nav-links{display:none}
+  section{padding:64px 24px}
+  .hero-inner{padding:0 24px 48px;flex-direction:column;justify-content:flex-end;gap:24px}
+  .hero-card{display:none}
+  .hero-strip{display:none}
+  h1{font-size:72px}
+  .about-grid,.features-intro,.mission-grid,.contact-grid{grid-template-columns:1fr}
+  .about-images{min-height:320px}
+  .fi-right{min-height:280px}
+  .contact-img{display:none}
+  .cards-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .g-item:first-child{grid-row:auto}
+  .about-content{padding:64px 24px}
+  .mission-content{padding:64px 24px}
+  .contact-form-side{padding:64px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-brand" href="#">
+    <div class="nav-mark">AC</div>
+    <div class="nav-txt">Alachua County<br>Youth Fair & Livestock Show</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#participate">Participate</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#participate" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1800&auto=format&fit=crop&q=80" alt="County fair livestock">
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eye">
+        <div class="hero-eye-line"></div>
+        <div class="hero-eye-txt">Alachua County, Florida · Non-Profit · Free Admission</div>
+      </div>
+      <h1>Youth<br>Fair &<br><em>Livestock</em><br>Show</h1>
+      <p class="hero-desc">An educational platform connecting 4-H & FFA youth aged 8–18 with agriculture through live exhibitions, competitions, and community celebration.</p>
+      <div class="btns">
+        <a href="#participate" class="btn btn-white">Exhibitor Info</a>
+        <a href="#about" class="btn btn-ghost">Learn More</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hc-row">
+        <span class="hc-label">Event Dates</span>
+        <span class="hc-val">March 5–10<br><span style="font-size:13px;opacity:.45">2026</span></span>
+      </div>
+      <div class="hc-row">
+        <span class="hc-label">Location</span>
+        <span class="hc-val-sm">Alachua County Ag<br>& Equestrian Center<br>23100 W Newberry Rd, FL</span>
+      </div>
+      <div class="hc-row">
+        <span class="hc-label">Eligibility</span>
+        <span class="hc-val-sm">4-H & FFA Youth · Ages 8–18</span>
+      </div>
+      <div class="hc-row">
+        <span class="hc-label">Admission</span>
+        <span class="hc-val">Free</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="hs-item">Livestock</div>
+    <div class="hs-item">Poultry</div>
+    <div class="hs-item">Youth Crafts</div>
+    <div class="hs-item">Farm Products</div>
+    <div class="hs-item">Live Auction</div>
+    <div class="hs-item">March 2026</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Livestock Show</span><span class="ticker-item">Poultry Exhibition</span><span class="ticker-item">Youth Crafts</span><span class="ticker-item">Farm Products</span><span class="ticker-item">Live Auction</span><span class="ticker-item">4-H & FFA Youth</span><span class="ticker-item">Free Admission</span><span class="ticker-item">March 5–10 · 2026</span><span class="ticker-item">Newberry, FL</span><span class="ticker-item">Livestock Show</span><span class="ticker-item">Poultry Exhibition</span><span class="ticker-item">Youth Crafts</span><span class="ticker-item">Farm Products</span><span class="ticker-item">Live Auction</span><span class="ticker-item">4-H & FFA Youth</span><span class="ticker-item">Free Admission</span><span class="ticker-item">March 5–10 · 2026</span><span class="ticker-item">Newberry, FL</span>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-content">
+      <div class="s-label">Our Mission</div>
+      <h2>Growing<br><em>Tomorrow's</em><br>Farmers</h2>
+      <p class="about-text" style="margin-top:24px">The <strong>Alachua County Youth Fair & Livestock Show Association</strong> is a non-profit organization that conducts and operates public fairs pertaining to agricultural matters — including exhibitions of livestock, poultry, crafts, youth projects, and farm products.</p>
+      <p class="about-text">The fair is an <strong>educational platform</strong> for the youth in Alachua County who are interested in agriculture. Youth from 4-H and FFA programs across the county come together to showcase months of hard work and dedication.</p>
+      <div class="btns" style="margin-top:32px">
+        <a href="#participate" class="btn btn-dark">How to Participate</a>
+        <a href="#contact" class="btn btn-outline-dark">Contact Us</a>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-n">6</div><div class="stat-l">Days of Events</div></div>
+        <div class="stat"><div class="stat-n">8–18</div><div class="stat-l">Age Range</div></div>
+        <div class="stat"><div class="stat-n">$0</div><div class="stat-l">Admission</div></div>
+      </div>
+    </div>
+    <div class="about-images">
+      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&auto=format&fit=crop&q=80" alt="Agricultural field at sunrise">
+      <div class="about-img-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARTICIPATE INTRO ══ -->
+<div class="features-intro" id="participate">
+  <div class="fi-left">
+    <div class="s-label" style="color:rgba(255,255,255,.3)">Get Involved</div>
+    <h2>How to<br><em>Participate</em></h2>
+    <p class="sec-desc" style="color:rgba(255,255,255,.45);margin-bottom:32px">Everything youth, buyers, sponsors, and vendors need to be part of the fair — from first entry to auction day.</p>
+    <a href="https://www.acyfls.com/exhibitors" class="btn btn-white" style="align-self:flex-start">View All Info →</a>
+  </div>
+  <div class="fi-right">
+    <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&auto=format&fit=crop&q=80" alt="Livestock barn">
+    <div class="fi-right-overlay"></div>
+  </div>
+</div>
+
+<!-- ══ CARDS ══ -->
+<div class="cards-section">
+  <div class="cards-grid">
+    <a href="https://www.acyfls.com/exhibitors" class="p-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&auto=format&fit=crop&q=80" alt="Youth livestock exhibitor">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-num">01</div>
+        <div class="card-title">Exhibitors</div>
+        <p class="card-desc">Rules, entry forms, online registration, ethics classes, and everything youth 8–18 need to compete.</p>
+        <span class="card-link">View Exhibitor Info</span>
+      </div>
+    </a>
+    <a href="https://www.acyfls.com/buyers" class="p-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1554483691-8a3a48f98e2d?w=600&auto=format&fit=crop&q=80" alt="Livestock auction">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-num">02</div>
+        <div class="card-title">Buyers & Add-Ons</div>
+        <p class="card-desc">Online payment and key information for buyers participating in the live livestock auction.</p>
+        <span class="card-link">Buyer Details</span>
+      </div>
+    </a>
+    <a href="https://www.acyfls.com/sponsorships" class="p-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&auto=format&fit=crop&q=80" alt="Sponsorship handshake">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-num">03</div>
+        <div class="card-title">Sponsorships</div>
+        <p class="card-desc">Sponsorship tiers, online payment, and contact info for businesses supporting local youth.</p>
+        <span class="card-link">Become a Sponsor</span>
+      </div>
+    </a>
+    <a href="https://www.acyfls.com/vendors" class="p-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80" alt="Food vendor at fair">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-num">04</div>
+        <div class="card-title">Vendors</div>
+        <p class="card-desc">Guidelines, application, and online payment for food trucks and market vendors at the fair.</p>
+        <span class="card-link">Vendor Application</span>
+      </div>
+    </a>
+    <a href="https://www.acyfls.com/board" class="p-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&auto=format&fit=crop&q=80" alt="Community group meeting">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-num">05</div>
+        <div class="card-title">ACYFLS Board</div>
+        <p class="card-desc">Meet the board members who volunteer year-round to organize and operate the fair for Alachua County.</p>
+        <span class="card-link">Meet the Board</span>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/playlist?list=PLPSGngA60GPasTv1g24JAyqXb6GsLEHUX" class="p-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=600&auto=format&fit=crop&q=80" alt="Farm at sunset">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-num">06</div>
+        <div class="card-title">Watch the Show</div>
+        <p class="card-desc">Watch past show highlights and full event recordings from previous fairs on our YouTube playlist.</p>
+        <span class="card-link">Watch Now</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ══ MISSION ══ -->
+<section class="mission">
+  <div class="mission-grid">
+    <div class="mission-img">
+      <img src="https://images.unsplash.com/photo-1595272568891-123402d0fb3b?w=900&auto=format&fit=crop&q=80" alt="Cattle in field">
+      <div class="mission-img-overlay"></div>
+    </div>
+    <div class="mission-content">
+      <blockquote class="mission-quote">"A non-profit organization providing an educational platform for the youth of Alachua County interested in agriculture."</blockquote>
+      <ul style="list-style:none">
+        <li class="mp"><span class="mp-n">01</span><span class="mp-t"><strong>Agricultural Education</strong> — Hands-on learning for youth through live competition and real exhibitions of livestock, poultry, and farm products.</span></li>
+        <li class="mp"><span class="mp-n">02</span><span class="mp-t"><strong>Community Connection</strong> — Bringing together families, businesses, and organizations across Alachua County each March.</span></li>
+        <li class="mp"><span class="mp-n">03</span><span class="mp-t"><strong>Youth Achievement</strong> — Recognizing hard work from participants in 4-H and FFA programs across the county.</span></li>
+        <li class="mp"><span class="mp-n">04</span><span class="mp-t"><strong>Always Free</strong> — The fair is and will always remain free and open to the entire public.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPONSORS ══ -->
+<section class="sponsors" id="sponsors">
+  <div class="sponsors-head">
+    <div>
+      <div class="s-label">Our Supporters</div>
+      <h2>2026<br><em>Sponsors</em></h2>
+    </div>
+    <a href="https://www.acyfls.com/sponsorships" class="btn btn-dark">Become a Sponsor →</a>
+  </div>
+
+  <div class="tier-block">
+    <div class="tier-row"><span class="tier-name">Platinum Sponsors</span><span class="tier-hr"></span></div>
+    <div class="sponsor-logos">
+      <div class="sponsor-logo-box" style="min-width:200px;padding:28px 40px">
+        <div style="text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--black);letter-spacing:.05em" class="sp-hover-txt">Texas Trailer</div>
+          <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-top:2px">Platinum Sponsor</div>
+        </div>
+      </div>
+      <div class="sponsor-logo-box" style="min-width:180px">
+        <div style="text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--black);letter-spacing:.05em">Crazy Dogs</div>
+          <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-top:2px">Platinum Sponsor</div>
+        </div>
+      </div>
+      <div class="sponsor-logo-box" style="min-width:160px">
+        <div style="text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--black);letter-spacing:.05em">LifeSouth</div>
+          <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-top:2px">Platinum Sponsor</div>
+        </div>
+      </div>
+      <div class="sponsor-logo-box" style="min-width:220px">
+        <div style="text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--black);letter-spacing:.03em">Mitchell's Meats</div>
+          <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-top:2px">Platinum Sponsor</div>
+        </div>
+      </div>
+      <div class="sponsor-logo-box" style="min-width:180px">
+        <div style="text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--black);letter-spacing:.05em">AC Farm Bureau</div>
+          <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-top:2px">Platinum Sponsor</div>
+        </div>
+      </div>
+      <div class="sponsor-logo-box" style="min-width:160px">
+        <div style="text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--black);letter-spacing:.05em">Circle H</div>
+          <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-top:2px">Platinum Sponsor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tier-block">
+    <div class="tier-row"><span class="tier-name">Gold & Silver Sponsors</span><span class="tier-hr"></span></div>
+    <div class="pill-row">
+      <div class="pill">Culver's</div>
+      <div class="pill">Cowboys BBQ</div>
+      <div class="pill">Ernie's</div>
+      <div class="pill">ACCA</div>
+      <div class="pill">DW Pest Control</div>
+      <div class="pill">Gainesville Area Businesses</div>
+      <div class="pill">+ Many More</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section class="gallery" id="gallery">
+  <div class="gallery-head">
+    <div>
+      <div class="s-label" style="color:rgba(255,255,255,.3)">Event Photos</div>
+      <h2>Fair<br><em>Highlights</em></h2>
+    </div>
+    <a href="https://www.youtube.com/playlist?list=PLPSGngA60GPasTv1g24JAyqXb6GsLEHUX" class="btn btn-ghost">Watch Full Show ↗</a>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=900&auto=format&fit=crop&q=80" alt="Cattle at fair">
+      <div class="g-caption">Livestock Competition</div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&auto=format&fit=crop&q=80" alt="Sheep show">
+      <div class="g-caption">Sheep Show</div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=600&auto=format&fit=crop&q=80" alt="Animal at fair">
+      <div class="g-caption">Youth Exhibitors</div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=600&auto=format&fit=crop&q=80" alt="Farm animals">
+      <div class="g-caption">Farm & Poultry</div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&auto=format&fit=crop&q=80" alt="Countryside landscape">
+      <div class="g-caption">Ag & Equestrian Center</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCHEDULE ══ -->
+<section class="schedule" id="schedule">
+  <div style="margin-bottom:56px">
+    <div class="s-label">Event Schedule</div>
+    <h2>March<br><em>2026</em></h2>
+    <p class="sec-desc">Key dates and registration windows for the 2026 Alachua County Youth Fair & Livestock Show.</p>
+  </div>
+  <div class="sched-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Event</th><th>Audience</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>March 5</strong></td><td>Fair Opens — Setup & Check-In</td><td>Exhibitors</td><td><span class="badge b-open">Open</span></td></tr>
+        <tr><td><strong>March 6</strong></td><td>Poultry & Small Animal Shows</td><td>4-H / FFA Youth</td><td><span class="badge b-open">Open</span></td></tr>
+        <tr><td><strong>March 7</strong></td><td>Livestock Judging Begins</td><td>4-H / FFA Youth</td><td><span class="badge b-open">Open</span></td></tr>
+        <tr><td><strong>March 8</strong></td><td>Youth Crafts & Farm Products Exhibition</td><td>All Youth</td><td><span class="badge b-open">Open</span></td></tr>
+        <tr><td><strong>March 9</strong></td><td>Live Auction — Livestock Sale</td><td>Exhibitors & Buyers</td><td><span class="badge b-reg">Registration Required</span></td></tr>
+        <tr><td><strong>March 10</strong></td><td>Awards Ceremony & Closing Day</td><td>All Attendees</td><td><span class="badge b-open">Open</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap">
+    <a href="https://www.acyfls.com/_files/ugd/576929_2575938da97049ee957f9a88e3e7f17c.pdf" class="btn btn-dark">Download Sale Order PDF</a>
+    <a href="https://www.acyfls.com/exhibitors" class="btn btn-outline-dark">Full Exhibitor Guide</a>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="contact-img">
+      <img src="https://images.unsplash.com/photo-1498579397066-22750a3cb424?w=900&auto=format&fit=crop&q=80" alt="Farm at dusk">
+      <div class="contact-img-overlay"></div>
+    </div>
+    <div class="contact-form-side">
+      <div class="s-label">Reach Us</div>
+      <h2>Get In<br><em>Touch</em></h2>
+      <div class="cd-items">
+        <div class="cd"><div class="cd-icon">📮</div><div><div class="cd-lbl">Address</div><div class="cd-v">PO Box 357190, Gainesville FL 32635</div></div></div>
+        <div class="cd"><div class="cd-icon">✉</div><div><div class="cd-lbl">Email</div><div class="cd-v"><a href="mailto:acyfls@gmail.com">acyfls@gmail.com</a></div></div></div>
+        <div class="cd"><div class="cd-icon">☎</div><div><div class="cd-lbl">Phone</div><div class="cd-v"><a href="tel:3527278168">(352) 727-8168</a></div></div></div>
+        <div class="cd"><div class="cd-icon">📍</div><div><div class="cd-lbl">Fair Location</div><div class="cd-v">Alachua County Ag & Equestrian Center<br>23100 W Newberry Road, Newberry, FL</div></div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-f"><label>First Name</label><input type="text" placeholder="Jane"></div>
+        <div class="form-f"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+      </div>
+      <div class="form-f"><label>Email Address</label><input type="email" placeholder="jane@example.com"></div>
+      <div class="form-f"><label>Message</label><textarea placeholder="How can we help you?"></textarea></div>
+      <button class="btn btn-white" style="width:100%;justify-content:center;font-family:'DM Sans',sans-serif">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">© 2026 Alachua County Youth Fair & Livestock Show</div>
+  <ul class="foot-links">
+    <li><a href="https://www.acyfls.com/exhibitors">Exhibitors</a></li>
+    <li><a href="https://www.acyfls.com/buyers">Buyers</a></li>
+    <li><a href="https://www.acyfls.com/sponsorships">Sponsors</a></li>
+    <li><a href="https://www.acyfls.com/vendors">Vendors</a></li>
+    <li><a href="https://www.facebook.com/AlachuaCountyYouthFair/" style="color:#4A90D9">Facebook ↗</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
